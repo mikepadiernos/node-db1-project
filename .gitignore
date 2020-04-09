@@ -64,4 +64,5 @@ typings/
 .next
 
 .idea/
+/package-lock.json
 /pnpm-lock.yaml
