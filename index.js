@@ -2,6 +2,11 @@ const server = require("./api/server.js");
 
 const PORT = process.env.PORT || 5000;
 
-server.listen(PORT, () => {
-  console.log(`\n== API running on port ${PORT} ==\n`);
-});
+// SERVER LISTEN ON DEFAULT PORT
+server
+  .listen(PORT, error => {
+    if (error) {
+      return console.log("What's the error? ", error);
+    }
+    console.log("Server is listening on port:", PORT);
+  });
