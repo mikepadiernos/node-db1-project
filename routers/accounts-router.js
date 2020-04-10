@@ -12,11 +12,18 @@ router
 			.catch(error => {
 				res.status(500).json({success: false, message: "Unable to retrieve accounts", error})
 			})
-	// .post((req, res) => {
-	// 	const account = req.body;
-	// 	db('accounts')
-	// 		.insert
-	// })
+	})
+	.post((req, res) => {
+		const account = req.body;
+		db('accounts')
+			.insert(account)
+			.then(id => {
+				console.log("account: ",id);
+				res.json({success: true, message: "Account added", id: id, account})
+			})
+			.catch(error => {
+				res.status(500).json({success: false, message: "Unable to add account", error})
+			})
 	});
 
 router
@@ -24,8 +31,6 @@ router
 	.get((req, res) => {
 		const id = req.params;
 		db('accounts')
-			// .select('*')
-			// .from('accounts')
 			.where(id)
 			.first()
 			.then(account => {
@@ -51,6 +56,9 @@ router
 			.catch(error => {
 				res.status(500).json({success: false, message: "Unable to update account", error})
 			})
+	})
+	.delete((req, res) => {
+
 	});
 
 module.exports = router;
