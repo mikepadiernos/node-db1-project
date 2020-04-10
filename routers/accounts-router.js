@@ -31,13 +31,26 @@ router
 			.then(account => {
 				account
 					? res.json({success: true, message: "Account found", account})
-					: res.status(400).json({success: false, message: "Account not fount"})
+					: res.status(400).json({success: false, message: "Account not found"})
 			})
 			.catch(error => {
 				res.status(500).json({success: false, message: "Unable to retrieve account", error})
 			})
-	// .put((req, res) => {})
-	// .delete((req, res) => {})
+	})
+	.put((req, res) => {
+		const id = req.params;
+		const updates = req.body;
+		db('accounts')
+			.where(id)
+			.update(updates)
+			.then(count => {
+				count > 0
+					? res.json({success: true, message: "Account updated"})
+					: res.status({success: false, message: "Account not updated"})
+			})
+			.catch(error => {
+				res.status(500).json({success: false, message: "Unable to update account", error})
+			})
 	});
 
 module.exports = router;
