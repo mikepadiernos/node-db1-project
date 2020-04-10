@@ -58,6 +58,18 @@ router
 			})
 	})
 	.delete((req, res) => {
+		const id = req.params;
+		db('accounts')
+			.where(id)
+			.del()
+			.then(count => {
+				count > 0
+					? res.json({success: true, message: "Account removed"})
+					: res.status({success: false, message: "Account not removed"})
+			})
+			.catch(error => {
+				res.status(500).json({success: false, message: "Unable to remove account", error})
+			})
 
 	});
 
